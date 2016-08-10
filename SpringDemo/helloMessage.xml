@@ -5,7 +5,7 @@
 	<bean id="hellochina" class="com.zjj.HelloChina"></bean>
  	
 	<bean id="person" class="com.zjj.Person">
-		<property name="helloMessage" ref="helloworld"></property>
+		<property name="helloMessage" ref="hellochina"></property>
 	</bean>
  
 
