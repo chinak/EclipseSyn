@@ -4,7 +4,7 @@ public class HelloChina implements IHelloMessage {
 
 	public String sayHello() {
 		// TODO Auto-generated method stub
-		return "大家好!！！";
+		return "大家好!！";
 	}
 
 }
