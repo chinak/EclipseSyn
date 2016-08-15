@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.seckill.dao.SeckillDaoDao">
+<mapper namespace="org.seckill.dao.SeckillDao">
 	<!-- 目的：为Dao接口方法提供sql语句配置 -->
 	<update id="reduceNumber">
 		update
@@ -11,7 +11,7 @@
 		set
 		number=number-1
 		where
-		sec_kill=#{seckill}
+		seckill_id=#{seckillId}
 		and start_time &lt; #{killTime}
 		and end_time &gt; #{killTime}
 		and number>0;

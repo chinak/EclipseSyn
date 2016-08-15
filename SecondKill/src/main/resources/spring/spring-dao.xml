@@ -26,8 +26,9 @@
 		<property name="password" value="${password}"></property>
 
 		<!-- 连接池的私有属性 -->
-		<property name="maxPoolSize" value="30"></property>
+		<property name="maxPoolSize" value="15"></property>
 		<property name="minPoolSize" value="10"></property>
+		
 		<property name="autoCommitOnClose" value="false"></property>
 		<property name="checkoutTimeout" value="1000"></property>
 		<property name="acquireRetryAttempts" value="2"></property>
@@ -52,7 +53,7 @@
 		<!-- 注入sqlSessionFactory -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 		<!-- 给出扫描Dao接口包 -->
-		<property name="base" value="org.seckill.dao"></property>
+		<property name="basePackage" value="org.seckill.dao"></property>
 	</bean>
 
 

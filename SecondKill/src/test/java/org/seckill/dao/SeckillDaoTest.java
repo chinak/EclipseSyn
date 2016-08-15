@@ -3,6 +3,9 @@ package org.seckill.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -19,15 +22,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class SeckillDaoTest {
 	
 	//注入Dao实现类依赖
+	
 	@Resource
-	private SeckillDao seckillDao;
-
-	/**
-	 * 配置SPRING和JUNIT整合，JUNIT启动时加载IOC容器
-	 */
-	
-	
-	
+	private SeckillDao seckillDao;	
 	
 	@Test
 	public void testQueryById() {
@@ -35,17 +32,22 @@ public class SeckillDaoTest {
 		Seckill seckill = seckillDao.queryById(id);
 		System.out.println(seckill.getName());
 		System.out.println(seckill);
+		
 	}
 
 	@Test
 	public void testQueryAll() {
-		fail("Not yet implemented");
+		
+		List<Seckill> seckills = seckillDao.queryAll(0, 100);
+		for(Seckill seckill:seckills){
+			System.out.println(seckill);
+		}
 	}
 	@Test
 	public void testReduceNumber() {
-		
-		
-		fail("Not yet implemented");
+		Date killTime = new Date();
+		int update = seckillDao.reduceNumber(1000L, killTime);
+		System.out.println(update);
 	}
 
 
