@@ -26,7 +26,7 @@
 		<property name="password" value="${password}"></property>
 
 		<!-- 连接池的私有属性 -->
-		<property name="maxPoolSize" value="15"></property>
+		<property name="maxPoolSize" value="12"></property>
 		<property name="minPoolSize" value="10"></property>
 		
 		<property name="autoCommitOnClose" value="false"></property>
