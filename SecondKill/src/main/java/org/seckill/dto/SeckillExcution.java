@@ -1,6 +1,7 @@
 package org.seckill.dto;
 
 import org.seckill.entity.SuccessKilled;
+import org.seckill.enums.SeckillStateEnum;
 
 /**
  * Encapsulate the result after seckill
@@ -17,18 +18,18 @@ public class SeckillExcution {
 	
 	private SuccessKilled successKilled;
 
-	public SeckillExcution(long seckillId, int state, String stateInfo) {
+	public SeckillExcution(long seckillId, SeckillStateEnum stateEnum) {
 		super();
 		this.seckillId = seckillId;
-		this.state = state;
-		this.stateInfo = stateInfo;
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 	}
 
-	public SeckillExcution(long seckillId, int state, String stateInfo, SuccessKilled successKilled) {
+	public SeckillExcution(long seckillId, SeckillStateEnum stateEnum, SuccessKilled successKilled) {
 		super();
 		this.seckillId = seckillId;
-		this.state = state;
-		this.stateInfo = stateInfo;
+		this.state = stateEnum.getState();
+		this.stateInfo = stateEnum.getStateInfo();
 		this.successKilled = successKilled;
 	}
 

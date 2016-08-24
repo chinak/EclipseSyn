@@ -10,10 +10,13 @@ import org.seckill.dao.SuccessKilledDao;
 import org.seckill.dto.Exposer;
 import org.seckill.dto.SeckillExcution;
 import org.seckill.entity.Seckill;
+import org.seckill.entity.SuccessKilled;
+import org.seckill.enums.SeckillStateEnum;
 import org.seckill.exception.RepeatKillException;
 import org.seckill.exception.SeckillCloseException;
 import org.seckill.exception.SeckillException;
 import org.springframework.util.DigestUtils;
+
 
 public class SeckillServiceImpl implements SeckillService{
 	
@@ -65,10 +68,43 @@ public class SeckillServiceImpl implements SeckillService{
 	}
 
 	@Override
-	public SeckillExcution executeSeckill(long sekillId, long userPhone, String md5)
+	public SeckillExcution executeSeckill(long seckillId, long userPhone, String md5)
 			throws SeckillException, RepeatKillException, SeckillCloseException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			if(md5 == null || !md5.equals(getMD5(seckillId))){
+				 throw new SeckillException("seckill data rewrite");
+			}
+			
+			//reduce the goods and record the behaviour
+			Date nowTime = new Date();
+			int uodateCount = seckillDao.reduceNumber(seckillId, nowTime);
+			if(uodateCount <= 0 ){
+				throw new SeckillCloseException("seckill is closed");
+			} else {
+				int insertCount = successKilledDao.insertSuccessKill(seckillId, userPhone);
+				if(insertCount <= 0){
+					throw new RepeatKillException("Repeat kill!");
+				}else {
+					SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
+					return new SeckillExcution(seckillId, SeckillStateEnum.SUCCESS, successKilled);
+				}
+			}
+		} catch(SeckillCloseException e1){
+			throw e1;
+		}
+		catch(RepeatKillException e2){
+			throw e2;
+		}
+
+		catch (Exception e) {
+			// TODO: handle exception
+			throw new SeckillCloseException("seckill inner error:"+e.getMessage());
+		}
+		
+		
+		
+		
+		
 	}
 	
 }
