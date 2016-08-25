@@ -3,8 +3,7 @@ package org.seckill.service;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
+
 import org.seckill.dao.SeckillDao;
 import org.seckill.dao.SuccessKilledDao;
 import org.seckill.dto.Exposer;
@@ -15,15 +14,21 @@ import org.seckill.enums.SeckillStateEnum;
 import org.seckill.exception.RepeatKillException;
 import org.seckill.exception.SeckillCloseException;
 import org.seckill.exception.SeckillException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
-
+@Service
 public class SeckillServiceImpl implements SeckillService{
 	
-//	private Logger logger = LoggerFactory.getLogger(this.getClass()); 
-	
+	private Logger logger = LoggerFactory.getLogger(this.getClass()); 
+	//获取Spring容器中的DAO的实例注入到service下面
+	@Autowired
 	private SeckillDao seckillDao;
-	
+	@Autowired
 	private SuccessKilledDao successKilledDao;
 	
 	private final String salt="asdfxczv@#$%^&";
@@ -68,6 +73,7 @@ public class SeckillServiceImpl implements SeckillService{
 	}
 
 	@Override
+	@Transactional
 	public SeckillExcution executeSeckill(long seckillId, long userPhone, String md5)
 			throws SeckillException, RepeatKillException, SeckillCloseException {
 		try {
