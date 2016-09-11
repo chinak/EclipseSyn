@@ -1,7 +1,6 @@
 package org.seckill.enums;
 
 
-
 /**
  * @author Dragon
  *使用枚举表示常量数据字段

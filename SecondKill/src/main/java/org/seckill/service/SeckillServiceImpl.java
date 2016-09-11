@@ -81,10 +81,10 @@ public class SeckillServiceImpl implements SeckillService{
 				 throw new SeckillException("seckill data rewrite");
 			}
 			
-			//reduce the goods and record the behaviour
+			//reduce the goods and record the behavior
 			Date nowTime = new Date();
-			int uodateCount = seckillDao.reduceNumber(seckillId, nowTime);
-			if(uodateCount <= 0 ){
+			int updateCount = seckillDao.reduceNumber(seckillId, nowTime);
+			if(updateCount <= 0 ){
 				throw new SeckillCloseException("seckill is closed");
 			} else {
 				int insertCount = successKilledDao.insertSuccessKill(seckillId, userPhone);
