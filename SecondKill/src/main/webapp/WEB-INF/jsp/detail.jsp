@@ -45,12 +45,12 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-xs-8 col-xs-offset-2">
-                                <input type="text" name="killphone" id="killphoneKey" placeholder="填手机号^O^" class="form-control"/>
+                                <input type="text" name="killPhone" id="killPhoneKey" placeholder="填手机号^O^" class="form-control"/>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <span id="killphoneMessage" class="glyphicon"></span>
+                        <span id="killPhoneMessage" class="glyphicon"></span>
                         <button type="button" id="killPhoneBtn" class="btn btn-success">
                             <span class="glyphicon glyphicon-phone"></span>
                             Submit
@@ -62,16 +62,18 @@
 
 </body>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="../js/jquery-2.2.4.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!-- <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<script src="../js/bootstrap.min.js"></script>
 
 <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script src="https://cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.js"></script>
 
 <!-- 交互逻辑 -->
-<script src="/resource/script/seckill.js" type="text/javascript"></script>
+
+<script src="../resource/script/seckill.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
 		
