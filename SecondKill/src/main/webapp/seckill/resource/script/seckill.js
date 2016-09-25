@@ -4,7 +4,9 @@
 var seckill={
 		//封装秒杀相关ajax地址
 		URL:{
-			
+			now:function(){
+				return '/seckill/time/now';
+			}
 		},
 		//验证手机号
 		validatePhone: function(phone){
@@ -14,6 +16,26 @@ var seckill={
 				return false;
 			}
 		},
+		
+		countDown:function(seckillId,nowTime,startTime,endTime){
+			var seckillBox = $('#seckill-box');
+			//时间判断
+			if(nowTime>endTime){
+				seckillBox.html('秒杀结束!');
+			}else if(nowTime<startTime){
+				//没有开始
+				var killTime = new Date(startTime+1000);
+				seckillBox.countdown(killTime,function(event){
+					var format = event.strftime('秒杀倒计时： %D天 %H时 %M分 %S秒');
+					seckillBox.html(format);
+				});
+				
+			}else{
+				//秒杀开始
+				
+			}
+		},
+		
 		//详情页秒杀逻辑
 		detail:{
 			//详情页初始化
@@ -49,8 +71,18 @@ var seckill={
 							$('#killPhoneMessage').hide().html('<lable class="lable lable-danger">手机号错误！</lable>').show(300);
 						}
 					});
-					
 				}
+				
+				//计时交互
+				$.get(seckill.URL.now(),{},function(result){
+					if(result && result['success']){
+						var nowTime = result['data'];
+						//时间判断
+						seckill.countdown(seckillId,nowTime,startTime,endTime);
+					}else{
+						console.log('result: '+result);
+					}
+				});
 			}
 		}
 		
