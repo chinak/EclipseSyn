@@ -56,7 +56,7 @@ public class SeckillController {
 	//ajax接口 return json
 	@RequestMapping(value="/{seckillId}/exposer" ,method=RequestMethod.POST ,produces={"application/json;charset=UTF-8"})
 	@ResponseBody
-	public SeckillResult<Exposer> exposer(Long seckillId){
+	public SeckillResult<Exposer> exposer(@PathVariable Long seckillId){
 		
 		SeckillResult<Exposer> result ;
 		try {
@@ -75,11 +75,10 @@ public class SeckillController {
 		
 	}
 	
-	@RequestMapping(value="/{seckillId}/{md5}/execution", method=RequestMethod.POST, produces={"application/json;charset=UTF-8"})
+	@RequestMapping(value="/{seckillId}/{md5}/execution", produces={"application/json;charset=UTF-8"})
 	@ResponseBody
-	public SeckillResult<SeckillExcution> execute(@PathVariable("SeckillId")Long seckillId,@PathVariable("md5")String md5,
+	public SeckillResult<SeckillExcution> execute(@PathVariable("seckillId")Long seckillId,@PathVariable("md5")String md5,
 			@CookieValue(value="killPhone",required=false)Long phone){
-		
 		//Spring valid can do it as well
 		if(phone==null){
 			return new SeckillResult<SeckillExcution>(false, "not registion");
@@ -89,14 +88,17 @@ public class SeckillController {
 			return new SeckillResult<SeckillExcution>(true, excution);
 		} catch(RepeatKillException e){
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId, SeckillStateEnum.REPEAT);
-			return new SeckillResult<SeckillExcution>(false,seckillExcution);
+			logger.info("repoeatexception======================"+e);
+			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}catch(SeckillCloseException e){
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId, SeckillStateEnum.END);
-			return new SeckillResult<SeckillExcution>(false,seckillExcution);
+			logger.info("closeexception======================"+e);
+			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}catch (Exception e) {
+			logger.info("exception======================"+e);
 			logger.error(e.getMessage(),e);
 			SeckillExcution seckillExcution = new SeckillExcution(seckillId, SeckillStateEnum.INNER_ERROR);
-			return new SeckillResult<SeckillExcution>(false,seckillExcution);
+			return new SeckillResult<SeckillExcution>(true,seckillExcution);
 		}
 		
 	}
