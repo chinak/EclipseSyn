@@ -1,2 +1,4 @@
 # EclipseSyn
-hjgj
+SecondKill project
+SpringMVC Mybatis  jQuery
+practice
